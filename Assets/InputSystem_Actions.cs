@@ -116,6 +116,24 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""BirinciEkipman"",
+                    ""type"": ""Button"",
+                    ""id"": ""ac9882f3-cc03-46b0-b1c0-d5776181f478"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""IkinciEkipman"",
+                    ""type"": ""Button"",
+                    ""id"": ""05889f9e-4371-473c-b9fb-3cf955a410cc"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -512,6 +530,28 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9e3abf2b-55a9-4257-8fe2-222b1b246f97"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BirinciEkipman"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""861f32fd-dc8a-45fb-b76f-69411b043533"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""IkinciEkipman"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1109,6 +1149,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Next = m_Player.FindAction("Next", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Zoom = m_Player.FindAction("Zoom", throwIfNotFound: true);
+        m_Player_BirinciEkipman = m_Player.FindAction("BirinciEkipman", throwIfNotFound: true);
+        m_Player_IkinciEkipman = m_Player.FindAction("IkinciEkipman", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1198,6 +1240,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Next;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Zoom;
+    private readonly InputAction m_Player_BirinciEkipman;
+    private readonly InputAction m_Player_IkinciEkipman;
     public struct PlayerActions
     {
         private @InputSystem_Actions m_Wrapper;
@@ -1212,6 +1256,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         public InputAction @Next => m_Wrapper.m_Player_Next;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @Zoom => m_Wrapper.m_Player_Zoom;
+        public InputAction @BirinciEkipman => m_Wrapper.m_Player_BirinciEkipman;
+        public InputAction @IkinciEkipman => m_Wrapper.m_Player_IkinciEkipman;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1251,6 +1297,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Zoom.started += instance.OnZoom;
             @Zoom.performed += instance.OnZoom;
             @Zoom.canceled += instance.OnZoom;
+            @BirinciEkipman.started += instance.OnBirinciEkipman;
+            @BirinciEkipman.performed += instance.OnBirinciEkipman;
+            @BirinciEkipman.canceled += instance.OnBirinciEkipman;
+            @IkinciEkipman.started += instance.OnIkinciEkipman;
+            @IkinciEkipman.performed += instance.OnIkinciEkipman;
+            @IkinciEkipman.canceled += instance.OnIkinciEkipman;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1285,6 +1337,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Zoom.started -= instance.OnZoom;
             @Zoom.performed -= instance.OnZoom;
             @Zoom.canceled -= instance.OnZoom;
+            @BirinciEkipman.started -= instance.OnBirinciEkipman;
+            @BirinciEkipman.performed -= instance.OnBirinciEkipman;
+            @BirinciEkipman.canceled -= instance.OnBirinciEkipman;
+            @IkinciEkipman.started -= instance.OnIkinciEkipman;
+            @IkinciEkipman.performed -= instance.OnIkinciEkipman;
+            @IkinciEkipman.canceled -= instance.OnIkinciEkipman;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1477,6 +1535,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         void OnNext(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);
+        void OnBirinciEkipman(InputAction.CallbackContext context);
+        void OnIkinciEkipman(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

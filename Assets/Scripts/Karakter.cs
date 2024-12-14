@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -33,6 +34,10 @@ public class Karakter : MonoBehaviour
     private void Awake()
     {
         inputActions = new InputSystem_Actions();
+
+        inputActions.Player.BirinciEkipman.performed += context => EkipmanDegisTiklandi(EKIPMANLAR.SCANNER);
+        inputActions.Player.IkinciEkipman.performed += context => EkipmanDegisTiklandi(EKIPMANLAR.CROSS);
+
     }
     private void Start()
     {
@@ -142,4 +147,10 @@ public class Karakter : MonoBehaviour
     {
         return inputActions.Player.Look.ReadValue<Vector2>();
     }
+
+    void EkipmanDegisTiklandi(EKIPMANLAR ekipman) 
+    {
+        UIManagers.Instance.EkipmanIkonuDegistir(ekipman);
+    }
+
 }
