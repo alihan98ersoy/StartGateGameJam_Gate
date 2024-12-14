@@ -96,6 +96,8 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
         IEnumerator TaramayiBaslat(float sure)
         {
+            suankiKurbann.KurbanTaramayiBaslat();
+
             if (suankiKurbann == suankiKurban)
                 UIManagers.Instance.ruhIsimText.text = "Taranýyor..";
             suankiKurbann.ruhu.isimTaraniyor = true;
@@ -116,6 +118,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
             if (suankiKurbann == suankiKurban)
                 UIManagers.Instance.RuhBilgisiGoster(suankiKurbann.ruhu);
 
+            suankiKurbann.KurbanTaramayiBitir();
             //UIManagers.Instance.EkipmanIkonuDegistir(EKIPMANLAR.SCANNER); UI manager yapýyor bunu
         }
     }

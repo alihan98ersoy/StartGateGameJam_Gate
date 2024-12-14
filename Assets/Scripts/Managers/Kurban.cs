@@ -9,6 +9,7 @@ public class Kurban : MonoBehaviour
     float ilerlemeMesafesi = 1f;
     Rigidbody rb;
 
+    Animator animator;
 
     public bool bekle = false;
     public bool bidahaBekleme = false;
@@ -27,6 +28,7 @@ public class Kurban : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody> ();
+        animator = GetComponent<Animator> ();
         StartCoroutine(SurekliIlerle());
     }
     void FixedUpdate()
@@ -36,16 +38,20 @@ public class Kurban : MonoBehaviour
         // Eğer hedefe yaklaştıysak kuvvet uygulamayı bırak
         if (direction.magnitude > stoppingDistance & !bekle || bidahaBekleme)
         {
+            animator.SetBool("Waliking", true);
+            Debug.Log("<!!> direction.normalized * forceStrength" + direction.normalized * forceStrength);
             rb.AddForce(direction.normalized * forceStrength);
         }
         else if (bekle) 
         {
+            animator.SetBool("Waliking", false);
             rb.linearVelocity = Vector3.zero;
         }
     }
 
     IEnumerator SurekliIlerle() 
     {
+        Debug.Log("<!!> SurekliIlerle");
         Ilerle();
         yield return new WaitForSeconds(ilerleTimer);
         StartCoroutine(SurekliIlerle());
@@ -53,6 +59,7 @@ public class Kurban : MonoBehaviour
 
     public void Ilerle() 
     {
+        Debug.Log("<!!> Ilerle");
         targetPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z + ilerlemeMesafesi);
         //transform.localPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z + ilerlemeMesafesi);
     }
@@ -67,6 +74,19 @@ public class Kurban : MonoBehaviour
     {
         Debug.Log("Kurban artık mubarek");
         Destroy(gameObject);
+    }
+
+    public void KurbanTaramayiBaslat()
+    {
+        Debug.Log("KurbanTaramayiBaslat");
+        GetComponent<KurbanTarama>().TaramayiBaslat();
+    }
+
+    public void KurbanTaramayiBitir()
+    {
+        Debug.Log("KurbanTaramayiBitir");
+        if(this != null)
+            GetComponent<KurbanTarama>().TaramayiBitir();
     }
 
     public override string ToString()
