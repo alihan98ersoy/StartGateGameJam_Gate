@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.ShaderGraph;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 public class Karakter : MonoBehaviour
@@ -39,14 +41,51 @@ public class Karakter : MonoBehaviour
         inputActions.Player.BirinciEkipman.performed += context => EkipmanDegisTiklandi(EKIPMANLAR.SCANNER);
         inputActions.Player.IkinciEkipman.performed += context => EkipmanDegisTiklandi(EKIPMANLAR.CROSS);
 
+
+        inputActions.Player.Interact.performed += OnInteractPerformed;
     }
+
+    private void OnInteractPerformed(InputAction.CallbackContext context)
+    {
+        Debug.Log("!!!!!!! OnInteractPerformed");
+
+        if (UIManagers.Instance.ruhBilgiPanel.activeSelf) 
+        {
+            if (UIManagers.Instance.suankiEkipman == EKIPMANLAR.COOLDOWN) 
+            {
+                UIManagers.Instance.InteractionTextDegistir("Lütfen ekipmanýn soðumasýný bekle :)");
+
+                StartCoroutine(Bekle(2f));
+
+                IEnumerator Bekle(float sayi)
+                {
+                    yield return new WaitForSeconds(sayi);
+
+                    if(UIManagers.Instance.InteractionText.text == "Lütfen ekipmanýn soðumasýný bekle :)")
+                        UIManagers.Instance.InteractionTextDegistir("");
+                }
+            }
+            else if(UIManagers.Instance.suankiEkipman == EKIPMANLAR.SCANNER)
+            {
+                GameManager.Instance.KurbaniTara(GameManager.Instance.suankiKurban);
+            }
+        }
+    }
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         initHeight = controller.height;
         Cursor.lockState = CursorLockMode.Locked;
-        //Cursor.visible = false;
+        Cursor.visible = true;
+        CenterCursor();
         SetBaseFOV(cam.fieldOfView);
+    }
+    private void CenterCursor()
+    {
+        // Ýmleci ekranýn ortasýna yerleþtir
+        Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
+        //Cursor.SetCursor(null, screenCenter, CursorMode.Auto);
     }
 
     private void OnEnable()
@@ -151,7 +190,8 @@ public class Karakter : MonoBehaviour
 
     void EkipmanDegisTiklandi(EKIPMANLAR ekipman) 
     {
-        UIManagers.Instance.EkipmanIkonuDegistir(ekipman);
+        if(UIManagers.Instance.suankiEkipman != EKIPMANLAR.COOLDOWN)
+            UIManagers.Instance.EkipmanIkonuDegistir(ekipman);
     }
 
     

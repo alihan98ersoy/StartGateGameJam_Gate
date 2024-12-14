@@ -17,6 +17,8 @@ public class Kurban : MonoBehaviour
     private float stoppingDistance = 0.1f;
     private float forceStrength = 1f;
 
+    bool isMouseOn = true;
+
     public void Initialize(Ruh ruhu)
     {
         this.ruhu = ruhu;
@@ -74,22 +76,49 @@ public class Kurban : MonoBehaviour
 
     void OnMouseOver()
     {
+        isMouseOn = true;
         GameManager.Instance.FareKurbanınÜzerineGeldi(this);
         Debug.Log("OnMouseOver: " + gameObject.name);
     }
     void OnMouseExit()
     {
-        GameManager.Instance.FareKurbaninUzerindenCikti();
-        Debug.Log("OnMouseExit: " + gameObject.name);
+        isMouseOn = false;
+        StartCoroutine(Bekle(0.1f));
+
+        IEnumerator Bekle(float sayi)
+        {
+            while (sayi > 0)
+            {
+                if (isMouseOn)
+                    break;
+
+                yield return new WaitForSeconds(0.01f);
+                sayi -= 0.01f;
+                if (sayi <= 0)
+                    FareExitOlduKesin();
+            }
+        }
+
+        void FareExitOlduKesin() 
+        {
+            GameManager.Instance.FareKurbaninUzerindenCikti();
+            Debug.Log("OnMouseExit: " + gameObject.name);
+        }
     }
 }
 
 public class Ruh 
 {
     public string ismi;
-    public float yuzdekaciyi;
+    public string yuzdekaciyi;
 
-    public Ruh(float yuzdekaciyi, string ismi = "")
+    public bool isimgizlimi = true;
+    public bool yuzdegizlimi = true;
+
+    public bool isimTaraniyor = false;
+    public bool yuzdeTaraniyor = false;
+
+    public Ruh(string yuzdekaciyi, string ismi = "")
     {
         this.ismi = ismi;
         this.yuzdekaciyi = yuzdekaciyi;

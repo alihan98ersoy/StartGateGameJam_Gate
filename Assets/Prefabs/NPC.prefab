@@ -108,8 +108,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.63
+  m_Height: 2.36
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4042677874735877902
@@ -124,6 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76594383df6aab047b385ea63acaa26f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bekle: 0
+  bidahaBekleme: 0
 --- !u!54 &5705089587078613247
 Rigidbody:
   m_ObjectHideFlags: 0

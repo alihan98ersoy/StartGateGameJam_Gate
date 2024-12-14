@@ -22,7 +22,6 @@ public class Sira : MonoBehaviourSingleton<Sira>
                 {
                     kurbanCikti = true;
                     kurbanlikSirasi.RemoveAt(i);
-                    kurban.KurbaniKurbanEt();
                 }
             }
             else 

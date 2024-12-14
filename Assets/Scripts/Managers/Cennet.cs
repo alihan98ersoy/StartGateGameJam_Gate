@@ -9,7 +9,7 @@ public class Cennet : MonoBehaviourSingleton<Cennet>
 
     public Cennet() 
     {
-        cennettekiler.Add(new Ruh(100));
+        cennettekiler.Add(new Ruh("100"));
     }
     public void CenneteEkle(Kurban kurban) 
     {
@@ -28,10 +28,10 @@ public class Cennet : MonoBehaviourSingleton<Cennet>
 
     private void CennetinYuzdesiHesapla()
     {
-        float total = 0;
+        int total = 0;
         foreach (var item in cennettekiler) 
         {
-            total += item.yuzdekaciyi;
+            total += int.Parse(item.yuzdekaciyi);
         }
 
         cennetinYuzdesi = total / cennettekiler.Count;
