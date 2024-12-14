@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     public float spawnSuresi = 1f;
 
+    public Kurban suankiKurban = null;
+
     private void Start()
     {
         Cennet.Instance.CenneteEkle(new Ruh(100));
@@ -55,6 +57,32 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     internal void SiraBitti()
     {
         //throw new NotImplementedException();
+    }
+
+    public void FareKurbanýnÜzerineGeldi(Kurban kurban) 
+    {
+        if (suankiKurban != null)
+            return;
+
+        suankiKurban = kurban;
+        if (UIManagers.Instance.suankiEkipman == EKIPMANLAR.SCANNER) 
+        {
+            UIManagers.Instance.InteractionTextDegistir("Kurbaný Taramak için E ye bas.");
+        }
+        else if (UIManagers.Instance.suankiEkipman == EKIPMANLAR.CROSS)
+        {
+            UIManagers.Instance.InteractionTextDegistir("Kurban Etmek için E ye bas.");
+        }
+        else if (UIManagers.Instance.suankiEkipman == EKIPMANLAR.COOLDOWN)
+        {
+            UIManagers.Instance.InteractionTextDegistir("");
+        }
+    }
+
+    public void FareKurbaninUzerindenCikti() 
+    {
+        suankiKurban = null;
+        UIManagers.Instance.InteractionTextDegistir("");
     }
 }
 

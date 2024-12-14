@@ -1,12 +1,21 @@
 ﻿using System.Collections;
+using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Kurban : MonoBehaviour
 {
     float ilerleTimer = 1f;
     float ilerlemeMesafesi = 1f;
+    Rigidbody rb;
 
+
+    public bool bekle = false;
+    public bool bidahaBekleme = false;
     public Ruh ruhu;
+    private Vector3 targetPosition;
+    private float stoppingDistance = 0.1f;
+    private float forceStrength = 1f;
 
     public void Initialize(Ruh ruhu)
     {
@@ -15,7 +24,22 @@ public class Kurban : MonoBehaviour
 
     private void Start()
     {
+        rb = GetComponent<Rigidbody> ();
         StartCoroutine(SurekliIlerle());
+    }
+    void FixedUpdate()
+    {
+        Vector3 direction = targetPosition - rb.position;
+
+        // Eğer hedefe yaklaştıysak kuvvet uygulamayı bırak
+        if (direction.magnitude > stoppingDistance & !bekle || bidahaBekleme)
+        {
+            rb.AddForce(direction.normalized * forceStrength);
+        }
+        else if (bekle) 
+        {
+            rb.linearVelocity = Vector3.zero;
+        }
     }
 
     IEnumerator SurekliIlerle() 
@@ -27,7 +51,8 @@ public class Kurban : MonoBehaviour
 
     public void Ilerle() 
     {
-        transform.localPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z + ilerlemeMesafesi);
+        targetPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z + ilerlemeMesafesi);
+        //transform.localPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z + ilerlemeMesafesi);
     }
 
     public void KurbaniKurbanEt() 
@@ -45,6 +70,17 @@ public class Kurban : MonoBehaviour
     public override string ToString()
     {
         return "Kurban" + ruhu;
+    }
+
+    void OnMouseOver()
+    {
+        GameManager.Instance.FareKurbanınÜzerineGeldi(this);
+        Debug.Log("OnMouseOver: " + gameObject.name);
+    }
+    void OnMouseExit()
+    {
+        GameManager.Instance.FareKurbaninUzerindenCikti();
+        Debug.Log("OnMouseExit: " + gameObject.name);
     }
 }
 

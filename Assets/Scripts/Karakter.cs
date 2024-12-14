@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.ShaderGraph;
 using UnityEngine;
 
@@ -152,5 +153,7 @@ public class Karakter : MonoBehaviour
     {
         UIManagers.Instance.EkipmanIkonuDegistir(ekipman);
     }
+
+    
 
 }
