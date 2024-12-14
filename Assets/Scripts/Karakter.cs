@@ -1,110 +1,145 @@
-using Unity.VisualScripting;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(CharacterController))]
 public class Karakter : MonoBehaviour
 {
-    public Transform cameraTransform;
+    private InputSystem_Actions inputActions;
 
-    public float moveSpeed = 0f;  // Karakterin hareket hýzý
-    public float sprintSpeed = 3f; // Merdiven týrmanma hýzý
-    public float walkSpeed = 1.5f;  // Karakterin yürüyüþ hýzý
-    public float lookSpeed = 2f;
-    private Rigidbody rb;
-    private Vector2 moveInput;
-    private Vector2 lookInput;
-    private float verticalRotation = 0f;
+    private CharacterController controller;
 
-    private InputSystem_Actions controls;
+    [SerializeField] private Camera cam;
+    [SerializeField] private float movementSpeed = 2.0f;
+    [SerializeField] public float lookSensitivity = 1.0f;
+
+    private float xRotation = 0f;
+
+    // Movement Vars
+    private Vector3 velocity;
+    public float gravity = -9.81f;
+    private bool grounded;
+
+    // Zoom Vars - Zoom code adapted from @torahhorse's First Person Drifter scripts.
+    public float zoomFOV = 35.0f;
+    public float zoomSpeed = 9f;
+    private float targetFOV;
+    private float baseFOV;
+
+    // Crouch Vars
+    private float initHeight;
+    [SerializeField] private float crouchHeight;
 
     private void Awake()
     {
-        controls = new InputSystem_Actions();
-
-        //Cursor.lockState = CursorLockMode.Locked;
-
-        // Hareket aksiyonu tanýmlamasý
-        controls.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
-        controls.Player.Move.canceled += ctx => moveInput = Vector3.zero;
-        controls.Player.Look.performed += ctx => lookInput = ctx.ReadValue<Vector2>();
-        controls.Player.Look.canceled += ctx => lookInput = Vector2.zero;
-
-        // Merdiven etkileþimi için
-        controls.Player.Interact.performed += OnInteractPerformed;
-
-        //Koþma
-        controls.Player.Sprint.started += OnSprintStarted;
-        controls.Player.Sprint.canceled += OnSprintCanceled;
-
+        inputActions = new InputSystem_Actions();
     }
-
-    void Start()
+    private void Start()
     {
-        rb = GetComponent<Rigidbody>();
-    }
-
-    void Update()
-    {
-        NeredeHareketOradaBereket();
+        controller = GetComponent<CharacterController>();
+        initHeight = controller.height;
+        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+        SetBaseFOV(cam.fieldOfView);
     }
 
     private void OnEnable()
     {
-        // Input Action'larý etkinleþtir
-        controls.Enable();
+        inputActions.Enable();
+    }
+
+    private void Update()
+    {
+        DoMovement();
+        DoLooking();
+        DoZoom();
+        DoCrouch();
+    }
+
+    private void DoLooking()
+    {
+        Vector2 looking = GetPlayerLook();
+        float lookX = looking.x * lookSensitivity * Time.deltaTime;
+        float lookY = looking.y * lookSensitivity * Time.deltaTime;
+
+        xRotation -= lookY;
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
+        cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+
+        transform.Rotate(Vector3.up * lookX);
+    }
+
+    private void DoMovement()
+    {
+        grounded = controller.isGrounded;
+        if (grounded && velocity.y < 0)
+        {
+            velocity.y = -2f;
+        }
+
+        Vector2 movement = GetPlayerMovement();
+        Vector3 move = transform.right * movement.x + transform.forward * movement.y;
+        controller.Move(move * movementSpeed * Time.deltaTime);
+
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
+    }
+
+    private void DoZoom()
+    {
+        if (inputActions.Player.Zoom.ReadValue<float>() > 0)
+        {
+            targetFOV = zoomFOV;
+        }
+        else
+        {
+            targetFOV = baseFOV;
+        }
+        UpdateZoom();
+    }
+
+    private void DoCrouch()
+    {
+        if (inputActions.Player.Crouch.ReadValue<float>() > 0)
+        {
+            controller.height = crouchHeight;
+        }
+        else
+        {
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), 2.0f, -1))
+            {
+                controller.height = crouchHeight;
+            }
+            else
+            {
+                controller.height = initHeight;
+            }
+        }
+    }
+
+    private void UpdateZoom()
+    {
+        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, targetFOV, zoomSpeed * Time.deltaTime);
+    }
+
+    public void SetBaseFOV(float fov)
+    {
+        baseFOV = fov;
     }
 
     private void OnDisable()
     {
-        // Input Action'larý devre dýþý býrak
-        controls.Disable();
+        inputActions.Disable();
     }
 
-    private void OnSprintCanceled(InputAction.CallbackContext context)
+    public Vector2 GetPlayerMovement()
     {
-        Debug.Log("OnSprintCanceled");
-        if (moveSpeed != walkSpeed)
-        {
-            moveSpeed = walkSpeed;
-        }
+        return inputActions.Player.Move.ReadValue<Vector2>();
     }
 
-    private void OnSprintStarted(InputAction.CallbackContext context)
+    public Vector2 GetPlayerLook()
     {
-        Debug.Log("OnSprintStarted");
-        if (moveSpeed != sprintSpeed)
-        {
-            moveSpeed = sprintSpeed;
-        }
+        return inputActions.Player.Look.ReadValue<Vector2>();
     }
-
-    private void NeredeHareketOradaBereket()
-    {
-        if (moveInput.x != 0 || moveInput.y != 0)
-        {
-            rb.linearVelocity = new Vector3(moveInput.x * moveSpeed, rb.linearVelocity.y, moveInput.y * moveSpeed);
-            //GetComponent<CharacterAnimationController>().PlayAnimation("A_Walk_F_Femn");
-        }
-        else
-        {
-            rb.linearVelocity = Vector3.zero;
-            //animator.SetFloat("Speed", 0);
-        }
-
-        // Mouse ile etrafa bakma
-        float mouseX = lookInput.x * lookSpeed;
-        float mouseY = lookInput.y * lookSpeed;
-
-        verticalRotation -= mouseY;
-        verticalRotation = Mathf.Clamp(verticalRotation, -90f, 90f);
-
-        cameraTransform.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
-        transform.Rotate(Vector3.up * mouseX);
-    }
-
-    private void OnInteractPerformed(InputAction.CallbackContext context)
-    {
-        Debug.Log("!!!!!int");
-    }
-
 }
