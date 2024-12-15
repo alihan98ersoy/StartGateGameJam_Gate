@@ -70,6 +70,10 @@ public class Karakter : MonoBehaviour
                 if(GameManager.Instance.suankiKurban.ruhu.isimgizlimi == true)
                     GameManager.Instance.KurbaniTara(GameManager.Instance.suankiKurban);
             }
+            else if (UIManagers.Instance.suankiEkipman == EKIPMANLAR.CROSS)
+            {
+                    GameManager.Instance.KurbanEt(GameManager.Instance.suankiKurban);
+            }
         }
     }
 

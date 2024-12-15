@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.ProBuilder.MeshOperations;
 
 public class Kurban : MonoBehaviour
 {
@@ -67,7 +68,21 @@ public class Kurban : MonoBehaviour
     public void KurbaniKurbanEt() 
     {
         Debug.Log("Kurban artık yok");
-        Destroy(gameObject);
+
+        StartCoroutine(Particle());
+
+        IEnumerator Particle()
+        {
+          bekle = true;
+          GetComponent<ParticleSystem>().Play();
+          yield return new WaitForSeconds(GetComponent<ParticleSystem>().main.duration);
+
+            if (GameManager.Instance.suankiKurban == this)
+                GameManager.Instance.FareKurbaninUzerindenCikti();
+          Destroy(gameObject);
+          
+        }
+        
     }
 
     public void KurbanArtikMubarek() 

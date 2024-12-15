@@ -13,10 +13,12 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     public Kurban suankiKurban = null;
 
+    int Wave = 0;
+
     private void Start()
     {
         Cennet.Instance.CenneteEkle(new Ruh("100"));
-        StartCoroutine(SurekliOlustur(5));
+        StartCoroutine(SurekliOlustur(Wave));
     }
 
     public void YeniKurbanOlustur(Ruh ruh) 
@@ -38,13 +40,12 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         }
     }
 
-    IEnumerator SurekliOlustur(int sayi)
+    IEnumerator SurekliOlustur(int wave)
     {
-        while (sayi > 0) 
+        foreach(var item in Waves.GetWave(wave)) 
         {
-            YeniKurbanOlustur(RandomRuhOlustur());
+            YeniKurbanOlustur(item);
             yield return new WaitForSeconds(spawnSuresi);
-            sayi--;
         }
     }
 
@@ -122,20 +123,48 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
             //UIManagers.Instance.EkipmanIkonuDegistir(EKIPMANLAR.SCANNER); UI manager yapýyor bunu
         }
     }
+
+    internal void KurbanEt(Kurban suankiKurban)
+    {
+        Sira.Instance.SiradanCýkar(suankiKurban);
+        suankiKurban.KurbaniKurbanEt();
+    }
 }
 
-/*public class GecmisYasami
+public static class Waves 
 {
-    public string ismi;
-    public string meslegi;
-    public string kacCM;
-    public string kendisiHakkindaBilgi;
-    public string olduguYasi;
-    public string olumsebebi;
-    //evli bekar mý falan burada
 
-    public override string ToString()
+    public static List<Ruh> GetWave(int wave) 
     {
-        return "KurbaninGecmisi:" +  ismi + "-" + meslegi + "-" + kacCM + "-" + kendisiHakkindaBilgi + "-" + olduguYasi + "-" + olumsebebi;
+        switch (wave) 
+        {
+            case 0: return new List<Ruh>()
+        {
+            new Ruh("86", "Joseph"),
+            new Ruh("79", "James"),
+            new Ruh("68", "Kim"),
+            new Ruh("33", "Stephan"),
+            new Ruh("93", "josh"),
+        };
+            case 1:
+                return new List<Ruh>()
+        {
+            new Ruh("86", "Joseph"),
+            new Ruh("79", "James"),
+            new Ruh("68", "Kim"),
+            new Ruh("33", "Stephan"),
+            new Ruh("93", "josh"),
+        };
+            default: return new List<Ruh>()
+        {
+            new Ruh("86", "Joseph"),
+            new Ruh("79", "James"),
+            new Ruh("68", "Kim"),
+            new Ruh("33", "Stephan"),
+            new Ruh("93", "josh"),
+        };
+
+
+        }
     }
-}*/
+}
