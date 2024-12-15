@@ -71,7 +71,7 @@ public class Kurban : MonoBehaviour
     public void KurbaniKurbanEt() 
     {
         Debug.Log("Kurban artık yok");
-        Instantiate(particlePrefab, transform.position, Quaternion.identity);
+        //Instantiate(particlePrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
