@@ -40,9 +40,12 @@ public class Sira : MonoBehaviourSingleton<Sira>
         }
     }
 
-    public void KurbanlikSirasiOlustur(List<Kurban> kurbanListesi) 
+    public void Gameover() 
     {
-
+        foreach (var item in kurbanlikSirasi)
+        {
+            Destroy(item.gameObject);
+        }
     }
 
     public void SuruKapiyaVardiBeklet(Kurban kurban) 

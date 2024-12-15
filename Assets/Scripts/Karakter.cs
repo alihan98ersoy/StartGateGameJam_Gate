@@ -107,6 +107,9 @@ public class Karakter : MonoBehaviour
 
     private void DoLooking()
     {
+        if (UIManagers.Instance.CompletePanel.activeSelf)
+            return;
+
         Vector2 looking = GetPlayerLook();
         float lookX = looking.x * lookSensitivity * Time.deltaTime;
         float lookY = looking.y * lookSensitivity * Time.deltaTime;
