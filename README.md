@@ -21,7 +21,7 @@ Kapının girişinde gelenleri Tarayıcı ile tarayarak Karmalarını öğreniyo
 <br>
 Notlar:
 <br>
-Cooldown esnasında ekipmanı kullanmak ve ekipman değiştirmek yasak. Ekiman sıcakken çantaya koymak tehlikeli olabilir:)
+Cooldown esnasında ekipmanı kullanmak ve ekipman değiştirmek yasak. Ekipman sıcakken çantaya koymak tehlikeli olabilir.
 
 ## Kullanılan Assetler
 
