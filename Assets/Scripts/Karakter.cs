@@ -36,13 +36,14 @@ public class Karakter : MonoBehaviour
 
     private void Awake()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         inputActions = new InputSystem_Actions();
 
         inputActions.Player.BirinciEkipman.performed += context => EkipmanDegisTiklandi(EKIPMANLAR.SCANNER);
         inputActions.Player.IkinciEkipman.performed += context => EkipmanDegisTiklandi(EKIPMANLAR.CROSS);
         inputActions.Player.Interact.performed += OnInteractPerformed;
 
-       Cursor.lockState = CursorLockMode.Locked;
+       
        // Cursor.visible = true;
     }
 
