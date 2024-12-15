@@ -14,11 +14,12 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     public Kurban suankiKurban = null;
 
     int Wave = 0;
+    public float kapidaBekle = 6f;
 
     private void Start()
     {
         Cennet.Instance.CenneteEkle(new Ruh("100"));
-        StartCoroutine(SurekliOlustur(Wave));
+        WaveBaslat(Wave);
     }
 
     public void YeniKurbanOlustur(Ruh ruh) 
@@ -53,11 +54,6 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     {
         int a = UnityEngine.Random.Range(0, 101);
         return new Ruh(a.ToString(), "ismi"+a );
-    }
-
-    internal void SiraBitti()
-    {
-        //throw new NotImplementedException();
     }
 
     public void FareKurbanýnÜzerineGeldi(Kurban kurban) 
@@ -102,7 +98,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
             if (suankiKurbann == suankiKurban)
                 UIManagers.Instance.ruhIsimText.text = "Taranýyor..";
             suankiKurbann.ruhu.isimTaraniyor = true;
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(1f);
             suankiKurbann.ruhu.isimgizlimi = false;
             suankiKurbann.ruhu.isimTaraniyor = false;
             Debug.Log("<!!> TaramayiBaslat suankiKurbann == suankiKurban" + (suankiKurbann == suankiKurban));
@@ -113,7 +109,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
             }
 
             suankiKurbann.ruhu.yuzdeTaraniyor = true;
-            yield return new WaitForSeconds(sure - 3f);
+            yield return new WaitForSeconds(sure - 1f);
             suankiKurbann.ruhu.yuzdegizlimi = false;
             suankiKurbann.ruhu.yuzdeTaraniyor = false;
             if (suankiKurbann == suankiKurban)
@@ -126,8 +122,26 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     internal void KurbanEt(Kurban suankiKurban)
     {
-        Sira.Instance.SiradanCýkar(suankiKurban);
+        UIManagers.Instance.EkipmanIkonuDegistir(EKIPMANLAR.COOLDOWN);
         suankiKurban.KurbaniKurbanEt();
+        Sira.Instance.SiradanCýkar(suankiKurban);
+        //suankiKurban.KurbaniKurbanEt();
+    }
+
+    public void WaveBaslat(int wave) 
+    {
+        Wave = wave;
+        StartCoroutine(SurekliOlustur(Wave));
+    }
+
+    internal void SiraBitti()
+    {
+        UIManagers.Instance.WaveComplete(Wave);
+    }
+
+    internal void GameOver()
+    {
+        UIManagers.Instance.Gameover();
     }
 }
 

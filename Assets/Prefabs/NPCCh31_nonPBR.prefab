@@ -336,6 +336,7 @@ GameObject:
   - component: {fileID: 8439622406619399482}
   - component: {fileID: 6507319445949463223}
   - component: {fileID: 443391208480582623}
+  - component: {fileID: 5701513083050297246}
   m_Layer: 0
   m_Name: NPCCh31_nonPBR
   m_TagString: Untagged
@@ -429,6 +430,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bekle: 0
   bidahaBekleme: 0
+  stoppingDistance: 0.1
+  forceStrength: 2
+  particlePrefab: {fileID: 1017501924869357794, guid: 540d8c197cf9e5c419c9f05faded1862, type: 3}
 --- !u!114 &6507319445949463223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -473,6 +477,27 @@ CapsuleCollider:
   m_Height: 1.809072
   m_Direction: 1
   m_Center: {x: 0.020441294, y: 0.885607, z: 0}
+--- !u!65 &5701513083050297246
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949664494355518113}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.76, y: 0.68, z: 0.64}
+  m_Center: {x: 0, y: 1.25, z: -0.054377437}
 --- !u!1 &1153063736572200463
 GameObject:
   m_ObjectHideFlags: 0

@@ -45,13 +45,13 @@ public class Sira : MonoBehaviourSingleton<Sira>
 
     }
 
-    public void SuruKapiyaVardiBeklet() 
+    public void SuruKapiyaVardiBeklet(Kurban kurban) 
     {
         foreach(var item in kurbanlikSirasi) 
         {
             item.bekle = true;
         }
-        StartCoroutine(Bekle(5f));
+        StartCoroutine(Bekle(GameManager.Instance.kapidaBekle));
         IEnumerator Bekle(float sure)
         {
             yield return new WaitForSeconds(sure);
@@ -59,7 +59,7 @@ public class Sira : MonoBehaviourSingleton<Sira>
             {
                 item.bekle = false;
             }
-            kurbanlikSirasi[0].bidahaBekleme = true;
+            kurban.bidahaBekleme = true;
         }
     }
 }

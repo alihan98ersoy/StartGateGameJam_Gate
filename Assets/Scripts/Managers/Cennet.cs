@@ -35,6 +35,18 @@ public class Cennet : MonoBehaviourSingleton<Cennet>
         }
 
         cennetinYuzdesi = total / cennettekiler.Count;
+        UIManagers.Instance.karmaText.text = "%" + cennetinYuzdesi.ToString("0");
+        UIManagers.Instance.karmaText2.text = "%" + cennetinYuzdesi.ToString("0");
+        if (cennetinYuzdesi < 60) 
+        {
+            GameManager.Instance.GameOver();
+        }
+    }
+
+    public void CennetReset()
+    {
+        cennettekiler.Clear();
+        cennettekiler.Add(new Ruh("100"));
     }
 
     private void OnTriggerEnter(Collider other)

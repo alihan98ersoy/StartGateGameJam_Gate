@@ -40,9 +40,10 @@ public class Karakter : MonoBehaviour
 
         inputActions.Player.BirinciEkipman.performed += context => EkipmanDegisTiklandi(EKIPMANLAR.SCANNER);
         inputActions.Player.IkinciEkipman.performed += context => EkipmanDegisTiklandi(EKIPMANLAR.CROSS);
-
-
         inputActions.Player.Interact.performed += OnInteractPerformed;
+
+       Cursor.lockState = CursorLockMode.Locked;
+       // Cursor.visible = true;
     }
 
     private void OnInteractPerformed(InputAction.CallbackContext context)
@@ -81,9 +82,7 @@ public class Karakter : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         initHeight = controller.height;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = true;
-        CenterCursor();
+        //CenterCursor();
         SetBaseFOV(cam.fieldOfView);
     }
     private void CenterCursor()

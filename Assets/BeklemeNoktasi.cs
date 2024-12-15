@@ -6,7 +6,8 @@ public class BeklemeNoktasi : MonoBehaviour
     {
         if(other.GetComponent<Kurban>() != null) 
         {
-            Sira.Instance.SuruKapiyaVardiBeklet();
+            if(other.GetComponent<Kurban>().bidahaBekleme == false)
+                Sira.Instance.SuruKapiyaVardiBeklet(other.GetComponent<Kurban>());
         }
     }
 }

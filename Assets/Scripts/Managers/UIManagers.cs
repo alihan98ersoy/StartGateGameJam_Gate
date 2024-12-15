@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +9,7 @@ public class UIManagers : MonoBehaviourSingleton<UIManagers>
 
     public Image EkipmanImageUI, EkipmanCoolDown;
 
-    public Text InteractionText, ruhIsimText, ruhYuzdeText;
+    public Text InteractionText, ruhIsimText, ruhYuzdeText, karmaText, karmaText2;
 
     public GameObject ruhBilgiPanel;
 
@@ -59,8 +60,8 @@ public class UIManagers : MonoBehaviourSingleton<UIManagers>
                 {
                     //Debug.Log("<!!> cooldown fill:" + timer / max);
                     EkipmanCoolDown.fillAmount = timer / max;
-                    yield return new WaitForSeconds(0.5f);
-                    timer -= 0.5f;
+                    yield return new WaitForSeconds(0.1f);
+                    timer -= 0.1f;
                 }
                 EkipmanIkonuDegistir(oncekiEkipman);
             }
@@ -101,6 +102,15 @@ public class UIManagers : MonoBehaviourSingleton<UIManagers>
         ruhBilgiPanel.SetActive(false);
     }
 
+    internal void Gameover()
+    {
+        throw new NotImplementedException();
+    }
+
+    internal void WaveComplete(int wave)
+    {
+        throw new NotImplementedException();
+    }
 }
 
 public enum EKIPMANLAR

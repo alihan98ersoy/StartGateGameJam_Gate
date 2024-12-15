@@ -16,8 +16,10 @@ public class Kurban : MonoBehaviour
     public bool bidahaBekleme = false;
     public Ruh ruhu;
     private Vector3 targetPosition;
-    private float stoppingDistance = 0.1f;
-    private float forceStrength = 1f;
+    public float stoppingDistance = 0.1f;
+    public float forceStrength = 1f;
+
+    public GameObject particlePrefab;
 
     bool isMouseOn = true;
 
@@ -37,11 +39,12 @@ public class Kurban : MonoBehaviour
         Vector3 direction = targetPosition - rb.position;
 
         // Eğer hedefe yaklaştıysak kuvvet uygulamayı bırak
-        if (direction.magnitude > stoppingDistance & !bekle || bidahaBekleme)
+        if (!bekle || bidahaBekleme)
         {
             animator.SetBool("Waliking", true);
             Debug.Log("<!!> direction.normalized * forceStrength" + direction.normalized * forceStrength);
-            rb.AddForce(direction.normalized * forceStrength);
+            if(rb.linearVelocity == Vector3.zero)
+                rb.linearVelocity = new Vector3(0, 0, 1 * forceStrength);
         }
         else if (bekle) 
         {
@@ -68,21 +71,8 @@ public class Kurban : MonoBehaviour
     public void KurbaniKurbanEt() 
     {
         Debug.Log("Kurban artık yok");
-
-        StartCoroutine(Particle());
-
-        IEnumerator Particle()
-        {
-          bekle = true;
-          GetComponent<ParticleSystem>().Play();
-          yield return new WaitForSeconds(GetComponent<ParticleSystem>().main.duration);
-
-            if (GameManager.Instance.suankiKurban == this)
-                GameManager.Instance.FareKurbaninUzerindenCikti();
-          Destroy(gameObject);
-          
-        }
-        
+        Instantiate(particlePrefab, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 
     public void KurbanArtikMubarek() 
