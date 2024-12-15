@@ -2120,16 +2120,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Oyun Ekibi:
-
-
-    Alihan Ersoy: in/alihan98ersoy/
-
-    Batuhan Ersoy:
-    in/ersoybatuhan/
-
-
-'
+  m_text: "Oynan\u0131\u015F:\nKap\u0131n\u0131n giri\u015Finde gelenleri Taray\u0131c\u0131
+    ile tarayarak Karmalar\u0131n\u0131 \xF6\u011Freniyorsun. Ve b\xF6ylece karmas\u0131
+    d\xFC\u015F\xFCk olanlar\u0131 Ha\xE7 ile yak\u0131yor ve Cennetin iyi bir yer
+    olarak kalmas\u0131n\u0131 sa\u011Fl\u0131yorsun.\n\n- Y\xFCr\xFCy\xFC\u015F:
+    WASD\n- Bak\u0131nma: Fare\n- Ekipman kullanmak: E\n- Ekipman de\u011Fi\u015Ftirmek:
+    1 - 2\n\nNotlar:\nCooldown esnas\u0131nda ekipman\u0131 kullanmak ve ekipman
+    de\u011Fi\u015Ftirmek yasak. Ekipman s\u0131cakken \xE7antaya koymak tehlikeli
+    olabilir."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2156,8 +2154,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 70
-  m_fontSizeBase: 70
+  m_fontSize: 35
+  m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3683,6 +3681,7 @@ MonoBehaviour:
 
     Batuhan Ersoy:
     in/ersoybatuhan/
+
 
 
 '
