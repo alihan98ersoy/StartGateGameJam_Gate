@@ -166,7 +166,7 @@ public static class Waves
 
     public static List<Ruh> GetWave(int wave) 
     {
-        if (wave == 2) 
+        if (wave == 4) 
         {
             wave = 0;
             GameManager.Instance.Wave = 0;
@@ -177,23 +177,41 @@ public static class Waves
             case 0: return new List<Ruh>()
         {
             new Ruh("86", "Joseph"),
-            new Ruh("79", "James"),
-            new Ruh("59", "Kim"),
-            new Ruh("33", "Stephan"),
-            new Ruh("93", "josh"),
+            new Ruh("59", "James"),
+            new Ruh("68", "Kim"),
+            new Ruh("60", "Stephan"),
+            new Ruh("33", "josh"),
         };
             case 1:
                 return new List<Ruh>()
         {
             new Ruh("99", "Jesus"),
-            new Ruh("01", "James"),
-            new Ruh("01", "Kim"),
-            new Ruh("01", "Stephan"),
-            new Ruh("01", "josh"),
+            new Ruh("68", "Turgut"),
+            new Ruh("01", "Hifler"),
+            new Ruh("71", "Jasmin"),
+            new Ruh("50", "Zeki"),
+        };
+            case 2:
+                return new List<Ruh>()
+        {
+            new Ruh("35", "Hodari"),
+            new Ruh("72", "Aslý"),
+            new Ruh("15", "Johnson"),
+            new Ruh("22", "Smith"),
+            new Ruh("85", "Kader"),
+        };
+            case 3:
+                return new List<Ruh>()
+        {
+            new Ruh("13", "Janet"),
+            new Ruh("68", "Turgut"),
+            new Ruh("01", "Histeri"),
+            new Ruh("71", "Jasmin"),
+            new Ruh("50", "Zeki"),
         };
             default: return new List<Ruh>()
         {
-            new Ruh("99", "Jesus"),
+            new Ruh("91", "Peder"),
             new Ruh("79", "James"),
             new Ruh("68", "Kim"),
             new Ruh("33", "Stephan"),

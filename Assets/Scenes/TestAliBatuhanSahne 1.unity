@@ -378,8 +378,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 1177097579}
-  movementSpeed: 20
-  lookSensitivity: 50
+  movementSpeed: 10
+  lookSensitivity: 35
   gravity: -9.81
   zoomFOV: 35
   zoomSpeed: 9

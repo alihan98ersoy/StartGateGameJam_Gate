@@ -55,7 +55,7 @@ public class Karakter : MonoBehaviour
         {
             if (UIManagers.Instance.suankiEkipman == EKIPMANLAR.COOLDOWN) 
             {
-                UIManagers.Instance.InteractionTextDegistir("Lütfen ekipmanýn soðumasýný bekle :)");
+                UIManagers.Instance.InteractionTextDegistir("Lütfen ekipmanýn soðumasýný bekle");
 
                 StartCoroutine(Bekle(2f));
 
@@ -63,7 +63,7 @@ public class Karakter : MonoBehaviour
                 {
                     yield return new WaitForSeconds(sayi);
 
-                    if(UIManagers.Instance.InteractionText.text == "Lütfen ekipmanýn soðumasýný bekle :)")
+                    if(UIManagers.Instance.InteractionText.text == "Lütfen ekipmanýn soðumasýný bekle")
                         UIManagers.Instance.InteractionTextDegistir("");
                 }
             }
