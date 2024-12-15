@@ -2124,7 +2124,7 @@ MonoBehaviour:
     ile tarayarak Karmalar\u0131n\u0131 \xF6\u011Freniyorsun. Ve b\xF6ylece karmas\u0131
     d\xFC\u015F\xFCk olanlar\u0131 Ha\xE7 ile yak\u0131yor ve Cennetin iyi bir yer
     olarak kalmas\u0131n\u0131 sa\u011Fl\u0131yorsun.\n\n- Y\xFCr\xFCy\xFC\u015F:
-    WASD\n- Bak\u0131nma: Fare\n- Ekipman kullanmak: E\n- Ekipman de\u011Fi\u015Ftirmek:
+    WASD\n- Kamera D\xF6nmesi: Fare Hareketi\n- Ekipman kullanmak: E\n- Ekipman de\u011Fi\u015Ftirmek:
     1 - 2\n\nNotlar:\nCooldown esnas\u0131nda ekipman\u0131 kullanmak ve ekipman
     de\u011Fi\u015Ftirmek yasak. Ekipman s\u0131cakken \xE7antaya koymak tehlikeli
     olabilir."
