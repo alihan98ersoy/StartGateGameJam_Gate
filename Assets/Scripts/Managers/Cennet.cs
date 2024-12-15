@@ -15,6 +15,7 @@ public class Cennet : MonoBehaviourSingleton<Cennet>
     {
         cennettekiler.Add(kurban.ruhu);
         kurban.KurbanArtikMubarek();
+        GameManager.Instance.Sesoynat(GameManager.Instance.cennet);
         Sira.Instance.SiradanCıkar(kurban);
 
         CennetinYuzdesiHesapla();
@@ -46,7 +47,7 @@ public class Cennet : MonoBehaviourSingleton<Cennet>
     public void CennetReset()
     {
         cennettekiler.Clear();
-        cennettekiler.Add(new Ruh("100"));
+        CenneteEkle(new Ruh("100"));
     }
 
     private void OnTriggerEnter(Collider other)

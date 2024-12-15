@@ -13,6 +13,10 @@ public class UIManagers : MonoBehaviourSingleton<UIManagers>
 
     public GameObject ruhBilgiPanel;
 
+    public GameObject CompletePanel;
+    public Text completeTitleText, completeButtonText;
+
+
     public float scannerCoolDown = 10f;
     public float crossCooldown = 5f;
 
@@ -102,14 +106,44 @@ public class UIManagers : MonoBehaviourSingleton<UIManagers>
         ruhBilgiPanel.SetActive(false);
     }
 
+    public void WaveButtonClicked() 
+    {
+        if(completeButtonText.text == "Yeniden Baþla") 
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cennet.Instance.CennetReset();
+            GameManager.Instance.WaveBaslat(0);
+            CompletePanel.SetActive(false);
+        }
+        else if (completeButtonText.text == "Yeni Wave")
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            GameManager.Instance.WaveBaslat(GameManager.Instance.Wave + 1);
+            CompletePanel.SetActive(false);
+        }
+    }
+
+
     internal void Gameover()
     {
-        throw new NotImplementedException();
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        CompletePanel.SetActive(true);
+        completeTitleText.text = "GAME OVER";
+        completeTitleText.color = Color.red;
+        completeButtonText.text = "Yeniden Baþla";
     }
 
     internal void WaveComplete(int wave)
     {
-        throw new NotImplementedException();
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        CompletePanel.SetActive(true);
+        completeTitleText.text = "TEBRÝKLER";
+        completeTitleText.color = Color.green;
+        completeButtonText.text = "Yeni Wave";
     }
 }
 

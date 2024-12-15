@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class GameManager : MonoBehaviourSingleton<GameManager>
 {
@@ -13,11 +14,16 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     public Kurban suankiKurban = null;
 
-    int Wave = 0;
+    public int Wave = 0;
     public float kapidaBekle = 6f;
+
+    AudioSource audioSource;
+
+    public AudioResource cennet, tarama, yakma;
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         Cennet.Instance.CenneteEkle(new Ruh("100"));
         WaveBaslat(Wave);
     }
@@ -94,7 +100,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         IEnumerator TaramayiBaslat(float sure)
         {
             suankiKurbann.KurbanTaramayiBaslat();
-
+            Sesoynat(tarama);
             if (suankiKurbann == suankiKurban)
                 UIManagers.Instance.ruhIsimText.text = "Taranýyor..";
             suankiKurbann.ruhu.isimTaraniyor = true;
@@ -125,6 +131,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         UIManagers.Instance.EkipmanIkonuDegistir(EKIPMANLAR.COOLDOWN);
         suankiKurban.KurbaniKurbanEt();
         Sira.Instance.SiradanCýkar(suankiKurban);
+        Sesoynat(yakma);
         //suankiKurban.KurbaniKurbanEt();
     }
 
@@ -141,7 +148,16 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     internal void GameOver()
     {
+        Sira.Instance.Gameover();
         UIManagers.Instance.Gameover();
+    }
+
+    public void Sesoynat(AudioResource audioSourcee) 
+    {
+        Debug.Log("<!!> Sesoynat audioSourcee:" + audioSourcee);
+
+        audioSource.resource = audioSourcee;
+        audioSource.Play();
     }
 }
 
@@ -150,35 +166,39 @@ public static class Waves
 
     public static List<Ruh> GetWave(int wave) 
     {
+        if (wave == 2) 
+        {
+            wave = 0;
+            GameManager.Instance.Wave = 0;
+        }
+
         switch (wave) 
         {
             case 0: return new List<Ruh>()
         {
             new Ruh("86", "Joseph"),
             new Ruh("79", "James"),
-            new Ruh("68", "Kim"),
+            new Ruh("59", "Kim"),
             new Ruh("33", "Stephan"),
             new Ruh("93", "josh"),
         };
             case 1:
                 return new List<Ruh>()
         {
-            new Ruh("86", "Joseph"),
-            new Ruh("79", "James"),
-            new Ruh("68", "Kim"),
-            new Ruh("33", "Stephan"),
-            new Ruh("93", "josh"),
+            new Ruh("99", "Jesus"),
+            new Ruh("01", "James"),
+            new Ruh("01", "Kim"),
+            new Ruh("01", "Stephan"),
+            new Ruh("01", "josh"),
         };
             default: return new List<Ruh>()
         {
-            new Ruh("86", "Joseph"),
+            new Ruh("99", "Jesus"),
             new Ruh("79", "James"),
             new Ruh("68", "Kim"),
             new Ruh("33", "Stephan"),
             new Ruh("93", "josh"),
         };
-
-
         }
     }
 }
