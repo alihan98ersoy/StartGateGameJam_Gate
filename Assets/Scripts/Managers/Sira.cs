@@ -46,6 +46,7 @@ public class Sira : MonoBehaviourSingleton<Sira>
         {
             Destroy(item.gameObject);
         }
+        kurbanlikSirasi.Clear();
     }
 
     public void SuruKapiyaVardiBeklet(Kurban kurban) 
