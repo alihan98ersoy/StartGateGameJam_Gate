@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManagers : MonoBehaviourSingleton<UIManagers>
@@ -110,11 +111,12 @@ public class UIManagers : MonoBehaviourSingleton<UIManagers>
     {
         if(completeButtonText.text == "Yeniden Baþla") 
         {
-            Cursor.visible = false;
+            SceneManager.LoadScene(0);
+            /*Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
             Cennet.Instance.CennetReset();
             GameManager.Instance.WaveBaslat(0);
-            CompletePanel.SetActive(false);
+            CompletePanel.SetActive(false);*/
         }
         else if (completeButtonText.text == "Yeni Wave")
         {
