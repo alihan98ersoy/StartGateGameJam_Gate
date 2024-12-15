@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/AnaSahne.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/MainMenu.unity
+    guid: 6499bb8cd2a448a4683409b75f9568c9
   - enabled: 1
     path: Assets/Scenes/TestAliBatuhanSahne 1.unity
     guid: 9bb95357d14c30941badecb4dcae5c6e
